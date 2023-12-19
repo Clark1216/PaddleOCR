@@ -1,0 +1,20 @@
+version: "2.3"
+
+services:
+
+  paddle_beginner:
+    container_name: paddle_dev
+    image: paddle:${VERSION}
+    build: .
+    runtime: nvidia
+    environment:
+      - DISPLAY
+    ipc: host # for GUI
+    #working_dir: /Keras/keras/examples/rl
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw  # for GUI access
+      - .:/paddle
+    # keep container alive, for development only (remove later)
+    command: tail -f /dev/null
+    # command: bash -c "python main.py"
+    restart: always
